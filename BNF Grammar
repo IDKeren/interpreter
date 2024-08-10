@@ -1,0 +1,28 @@
+## BNF Grammar
+
+<program>         ::= <statement> | <statement> <program>
+<statement>       ::= <expression> | <function_definition>
+<function_definition> ::= "Defun" <identifier> "(" <parameters> ")" <expression>
+<expression>      ::= <comparison> | <arithmetic> | <boolean> | <function_call>
+<comparison>      ::= <term> ("==" | "!=" | ">" | "<" | ">=" | "<=") <term>
+<arithmetic>      ::= <term> ("+" | "-" | "*" | "/" | "%") <term>
+<boolean>         ::= <term> ("&&" | "||") <term>
+<term>            ::= <factor> | <function_call> | <literal> | <identifier>
+<literal>         ::= <integer> | <boolean>
+<integer>         ::= <digit> | <digit><integer>
+<digit>           ::= "0" | "1" | ... | "9"
+<identifier>      ::= <letter> | <letter><identifier>
+<letter>          ::= "a" | "b" | ... | "z" | "A" | "B" | ... | "Z"
+
+
+### Explanation of BNF Rules
+
+- `<program>`: Represents the entire source code of the program, which is composed of one or more `<statement>` elements.
+- `<statement>`: A statement can either be an expression or a function definition.
+- `<function_definition>`: Functions are defined using the "Defun" keyword, followed by an identifier (function name), a list of parameters, and a body (expression) that represents the function's logic.
+- `<expression>`: An expression can be a comparison, arithmetic operation, boolean operation, or a function call.
+- `<comparison>`: Used to compare two terms using relational operators such as `==`, `!=`, `>`, `<`, `>=`, `<=`.
+- `<arithmetic>`: Handles basic arithmetic operations like addition (`+`), subtraction (`-`), multiplication (`*`), division (`/`), and modulo (`%`).
+- `<boolean>`: Handles boolean logic operations like AND (`&&`), OR (`||`).
+- `<term>`: A generic term that could be a literal (number or boolean), a function call, or an identifier.
+- `<literal>`: Represents constant values in the language, either integers or booleans.
