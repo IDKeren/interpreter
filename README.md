@@ -32,6 +32,8 @@ python3 main.py
 **Usage**
 Once the interpreter is running, you can start entering expressions or full programs directly into the REPL.
 
+Method 1: Line-By-Line String Input
+
 Example 1: Basic Arithmetic
 >>> 3 + 4 * 2
 11
@@ -50,6 +52,14 @@ Example 3: Function Definition
 Example 4: Recursive Function
 >>> Defun factorial(n) ((n == 0) or (n * factorial(n - 1)))
 >>> factorial(5)
+120
+
+Method 2: Multi-Line String Input
+
+Example 5: Recursive Function
+>>> Defun factorial(n)
+ ((n == 0) or (n * factorial(n - 1)))
+ factorial(5)
 120
 
 **Exiting the REPL**
