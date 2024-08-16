@@ -62,6 +62,22 @@ Example 5: Recursive Function
  factorial(5)
 120
 
+Example 6: Multi Functions
+Defun factorial(n) 
+((n == 0) or (n * factorial(n - 1))) 
+Defun fibonacci(n)
+((n <= 1) or (fibonacci(n - 1) + fibonacci(n - 2)))
+Defun sum_to_x(x)
+((x == 1) and (x + sum_to_x(x - 1)))
+factorial(5)
+fibonacci(10)
+sum_to_x(10)
+
+Output:
+120
+89
+55
+
 **Exiting the REPL**
 Type exit: To exit the REPL, simply type exit and press Enter.
 Use Ctrl+C or Ctrl+D: You can also exit using keyboard shortcuts.
