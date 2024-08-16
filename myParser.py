@@ -34,14 +34,18 @@ class Parser:
     def function_definition(self):
         # Parse a function definition
         self.next_token()
-        if self.current_token is None:
+        if self.current_token is None or self.current_token.type != TT_IDENTIFIER:
             raise Exception("Expected function name after 'Defun'")
+
         func_name = self.current_token.value
         self.next_token()
+
         if self.current_token is None or self.current_token.type != TT_LPAREN:
             raise Exception("Expected '(' after function name")
+
         self.next_token()
         args = []
+
         while self.current_token is not None and self.current_token.type == TT_IDENTIFIER:
             args.append(self.current_token.value)
             self.next_token()
@@ -50,10 +54,10 @@ class Parser:
         if self.current_token is None or self.current_token.type != TT_RPAREN:
             raise Exception("Expected ')' after argument list")
         self.next_token()
-        # Here, we allow the function body to start on a new line or after ')'
-        if self.current_token is None or self.current_token.type not in (TT_LPAREN, TT_IDENTIFIER, TT_INT):
-            raise Exception("Expected function body after ')'")
 
+        # Here, we allow the function body to start on a new line or after ')'
+        if self.current_token is None:
+            raise Exception("Expected function body after ')'")
         body = self.expression()
         return {'type': 'FunctionDef', 'name': func_name, 'arguments': args, 'body': body}
 
@@ -109,7 +113,6 @@ class Parser:
             return self.primary()
 
     def primary(self):
-        # Parse primary expressions (e.g., literals, variables, function calls)
         token = self.current_token
         if token is None:
             raise Exception("Unexpected end of input")
@@ -119,17 +122,12 @@ class Parser:
             self.next_token()
             return {'type': 'Literal', 'value': token.value}
 
-        # Handle boolean literals
-        elif token.type == 'Literal' and isinstance(token.value, bool):
-            self.next_token()
-            return {'type': 'Literal', 'value': token.value}
-
         # Handle expressions in parentheses
         elif token.type == TT_LPAREN:
             self.next_token()
             expr = self.expression()
             if self.current_token is None or self.current_token.type != TT_RPAREN:
-                raise Exception("Expected ')'")
+                raise Exception("Expected ')' to close the expression")
             self.next_token()
             return expr
 
@@ -144,7 +142,7 @@ class Parser:
                     if self.current_token is not None and self.current_token.type == TT_COMMA:
                         self.next_token()
                 if self.current_token is None or self.current_token.type != TT_RPAREN:
-                    raise Exception("Expected ')'")  # Ensure ')' closes the argument list
+                    raise Exception("Expected ')' after arguments")
                 self.next_token()
                 return {'type': 'FunctionCall', 'name': token.value, 'arguments': args}
             else:
@@ -159,8 +157,9 @@ class Parser:
                 raise Exception("Expected '.' in lambda expression")
             self.next_token()
             body = self.expression()
-            return {'type': 'Lambda', 'param': param, 'body': body}
+            return {'type': 'Lambd', 'param': param, 'body': body}
 
         # Handle unexpected tokens
         else:
             raise Exception(f"Unexpected token: {token}")
+

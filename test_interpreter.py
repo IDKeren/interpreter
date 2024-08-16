@@ -110,6 +110,7 @@ class TestInterpreter(unittest.TestCase):
         interpreter = Interpreter(ast)
         result = interpreter.evaluate()
         self.assertEqual(result, 7)
+        print(result)
 
     def test_fibonacci(self):
         # Define a recursive function to compute the nth Fibonacci number

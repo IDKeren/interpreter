@@ -53,8 +53,13 @@ class Interpreter:
             func = self.evaluate({'type': 'Variable', 'name': node['name']}, env)
             if not func:
                 raise Exception(f"Undefined function: {node['name']}")
-            if func['type'] == 'Lambda':
-                return self.apply_lambda(func, node['arguments'], env)
+            if func['type'] == 'Lambd':
+                result = self.apply_lambda(func, node['arguments'], env)
+                # Handle the case where the result is another lambda function
+                while isinstance(result, dict) and result['type'] == 'Lambd' and len(node['arguments']) > 1:
+                    node['arguments'].pop(0)
+                    result = self.apply_lambda(result, node['arguments'], env)
+                return result
             elif func['type'] == 'FunctionDef':
                 new_env = env.copy()
                 for i, arg in enumerate(func['arguments']):
@@ -63,19 +68,21 @@ class Interpreter:
             else:
                 raise Exception(f"Unexpected function type: {func['type']}")
 
-        elif node['type'] == 'Lambda':
+        elif node['type'] == 'Lambd':
             # When a lambda is encountered, return a function that can be called
             return {
-                'type': 'Lambda',
+                'type': 'Lambd',
                 'param': node['param'],
                 'body': node['body'],
                 'env': env  # Capture the environment where the lambda was defined
             }
-
         else:
             raise Exception(f"Unexpected node type: {node['type']}")
 
-
+    def apply_lambda(self, func, args, env):
+        new_env = func['env'].copy()  # Create a new environment based on where the lambda was defined
+        new_env[func['param']] = self.evaluate(args[0], env)  # Bind the argument to the lambda's parameter
+        return self.evaluate(func['body'], new_env)  # Evaluate the lambda's body in the new environment
 
     def evaluate_binary_op(self, operator, left_val, right_val):
         if operator == TT_AND:
