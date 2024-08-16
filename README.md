@@ -20,7 +20,7 @@ Ensure all necessary files (lexer.py, myParser.py, interpreter.py, tokens.py, et
 
 **Installation**
 Clone the repository:
-git clone https://github.com/your-repo/interpreter.git
+git clone https://github.com/IDKeren/interpreter.git
 cd interpreter
 
 Ensure you have Python 3.x installed:
