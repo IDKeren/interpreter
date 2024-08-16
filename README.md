@@ -1,8 +1,8 @@
-Functional Programming Language Interpreter
+**Functional Programming Language Interpreter**
 Welcome to the Functional Programming Language Interpreter! 
 This interpreter allows you to define functions, use lambda expressions, and perform various computations in a custom functional programming language.
 
-Features:
+**Features:**
 Arithmetic Operations: Supports addition (+), subtraction (-), multiplication (*), division (/), and modulo (%).
 Boolean Operations: Supports logical operations such as AND (&&), OR (||), and NOT (!).
 Comparison Operations: Supports equality (==), inequality (!=), greater than (>), less than (<), greater than or equal to (>=), and less than or equal to (<=).
