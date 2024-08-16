@@ -67,16 +67,16 @@ Defun factorial(n)
 ((n == 0) or (n * factorial(n - 1))) 
 Defun fibonacci(n)
 ((n <= 1) or (fibonacci(n - 1) + fibonacci(n - 2)))
-Defun sum_to_x(x)
-((x == 1) and (x + sum_to_x(x - 1)))
+Defun is_even(n)
+  ((n % 2) == 0)
 factorial(5)
 fibonacci(10)
-sum_to_x(10)
+is_even(4)
 
 Output:
 120
 89
-55
+True
 
 **Exiting the REPL**
 Type exit: To exit the REPL, simply type exit and press Enter.
