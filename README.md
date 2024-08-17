@@ -66,7 +66,7 @@ Example 6: Multi Functions
 Defun factorial(n) 
 ((n == 0) or (n * factorial(n - 1))) 
 Defun fibonacci(n)
-((n <= 1) or (fibonacci(n - 1) + fibonacci(n - 2)))
+((n == 1) or (fibonacci(n - 1) + fibonacci(n - 2)))
 Defun is_even(n)
   ((n % 2) == 0)
 factorial(5)
